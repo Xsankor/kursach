@@ -10,7 +10,8 @@ namespace AppGraphs
 {
     public class Graph : Control
     {
-        public double maxEdge = 10;
+        public double maxSizeEdge = 10;
+        public double minSizeEdge = -10;
 
         Point point;
         public double a = 2, b = 0, c = 2, d = 1;
@@ -20,19 +21,9 @@ namespace AppGraphs
 
         public Point GetPoints(double corX, double corY) 
         {
-            point_new.X = (int)(corX * this.Size.Width / (2 * maxEdge)) + this.Size.Width / 2;
-            point_new.Y = (int)(corY * this.Size.Height / (2 * maxEdge)) + this.Size.Height / 2;
+            point_new.X = (int)(corX * this.Size.Width / (2 * maxSizeEdge)) + this.Size.Width / 2;
+            point_new.Y = (int)(corY * this.Size.Height / (2 * maxSizeEdge)) + this.Size.Height / 2;
             return point_new;
-        }
-
-        public float YToPixels(double y)
-        {
-            return (float)(ChartArea.Height * (y - (-maxEdge)) / (maxEdge - (-maxEdge)));
-        }
-
-        public float XToPixels(double x)
-        {
-            return (float)(ChartArea.Width * (x - (-maxEdge)) / (maxEdge - (-maxEdge)));
         }
 
         public void SetPoint(double pointX, double pointY, Graphics graphics, Pen pen) 
@@ -50,7 +41,7 @@ namespace AppGraphs
             double y;
             Pen pen = new Pen(color, 2);
             Graphics graphics = this.CreateGraphics();
-            for (double x = (-maxEdge); x <= maxEdge; x += 0.01)
+            for (double x = minSizeEdge; x <= maxSizeEdge; x += 0.01)
             {
                 x = Math.Round(x, 2);
                 if (x == 0) continue;
@@ -58,6 +49,7 @@ namespace AppGraphs
                 SetPoint(x, y, graphics, pen);
             }
             SetNullable();
+            pen.Dispose();
         }
 
         public double СalcFunction(double x, int option = 0)
@@ -81,16 +73,6 @@ namespace AppGraphs
         public void SetNullable()
         {
             nullable = null;
-        }
-
-        public Rectangle ChartArea
-        {
-            get
-            {
-                var rect = ClientRectangle;
-                rect.Inflate(-1, -1);
-                return rect;
-            }
         }
     }
 }

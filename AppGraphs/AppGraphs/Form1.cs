@@ -7,12 +7,11 @@ namespace AppGraphs
 {
     public partial class Form1 : Form
     {
+        Plane plane;
         Graph graph;
-        Graphics graphics;
+
         Color selectedColor;
         List<int> Checked = new List<int>();
-
-        double sizeEdges = 10;
 
         public Form1()  
         {
@@ -22,9 +21,11 @@ namespace AppGraphs
             checkedListBox1.SetItemChecked(0, true);
             Checked.Add(0);
 
-            graph = new Graph() { Parent = panel2, Dock = DockStyle.Fill };
-            graphics = graph.CreateGraphics();
-            DrawD();
+            plane = new Plane() { Parent = panel2, Dock = DockStyle.Fill };
+            graph = new Graph() { Parent = plane,  Dock = DockStyle.Fill };
+            plane.graphics = graph.CreateGraphics();
+
+            plane.DrawPlane();
         }
 
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -43,7 +44,7 @@ namespace AppGraphs
 
         private void ReDraw() 
         {
-            DrawD();
+            plane.DrawPlane();
             for (int i = 0; i < Checked.Count; ++i)
             {
                 GetAllData(Checked[i]);
@@ -60,6 +61,7 @@ namespace AppGraphs
                     graph.a = Convert.ToInt32(textBox3.Text);
                     graph.b = Convert.ToInt32(textBox4.Text);
                     graph.c = Convert.ToInt32(textBox5.Text);
+
                     color = pictureBox2.BackColor;
                 }
                 break;
@@ -67,6 +69,7 @@ namespace AppGraphs
                 {
                     graph.a = Convert.ToInt32(textBox2.Text);
                     graph.b = Convert.ToInt32(textBox1.Text);
+
                     color = pictureBox3.BackColor;
                 }
                 break;
@@ -76,111 +79,58 @@ namespace AppGraphs
                      graph.b = Convert.ToInt32(textBox7.Text);
                      graph.c = Convert.ToInt32(textBox6.Text);
                      graph.d = Convert.ToInt32(textBox9.Text);
+
                      color = pictureBox4.BackColor;
                 }
                 break;
                 case 3:
                 {
                     graph.a = Convert.ToInt32(textBox10.Text);
+
                     color = pictureBox5.BackColor;
                 }
                 break;
                 case 4:
                 {
-                    color = pictureBox6.BackColor;
+                     color = pictureBox6.BackColor;
                 }
                 break;
                 case 5:
                 {
-                    color = pictureBox7.BackColor;
+                      color = pictureBox7.BackColor;
                 }
                 break;
                 case 6:
                 {
-                    color = pictureBox8.BackColor;
+                      color = pictureBox8.BackColor;
                 }
                 break;
                 case 7:
                 {
-                    color = pictureBox9.BackColor;
+                      color = pictureBox9.BackColor;
                 }
                 break;
                 case 8:
                 {
-                    color = pictureBox10.BackColor;
+                      color = pictureBox10.BackColor;
                 }
                 break;
                 case 9:
                 {
-                    color = pictureBox11.BackColor;
+                      color = pictureBox11.BackColor;
                 }
                 break;
             }
             graph.BuildGraph(index, color);
         }
 
-
         // Также добавить ONCHANGE
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            graph.maxEdge = (int)numericUpDown1.Value;
+            plane.maxEdge = (int)numericUpDown1.Value;
+            graph.maxSizeEdge = (int)numericUpDown1.Value;
+            graph.minSizeEdge = -(int)numericUpDown1.Value;
             ReDraw();
-        }
-
-        private void DrawD() 
-        {
-            Rectangle rectangle = graph.ChartArea;
-            double maxEdge = graph.maxEdge;
-
-            graphics.Clear(Color.White);
-            Pen pen_line = new Pen(Color.LightGray, 1);
-            //Вертикальные линии
-            for (int i = (int)(-maxEdge); i <= (int)maxEdge; ++i) 
-            //for (int i = -panel1.Height / (5 * (int)maxEdge); i < panel1.Height / (5 * (int)maxEdge); ++i)
-            {
-                float X = graph.Left + graph.XToPixels(i);
-                graphics.DrawLine(pen_line, X, rectangle.Bottom, X, rectangle.Top);
-                //graphics.DrawLine(pen_line, panel1.Width / 2 + i * 5 * (int)maxEdge, panel1.Height / 2 - 2, panel1.Width / 2 + i * 5 * (int)maxEdge, panel1.Height / 2 + 2);
-            }
-
-            //Горизонтальные линии
-            for (int i = (int)(-maxEdge); i <= (int)maxEdge; ++i) 
-            //for (int i = -panel1.Width / (5 * (int)maxEdge); i < panel1.Width / (5 * (int)maxEdge); ++i)
-            {
-                float Y = graph.Bottom - graph.YToPixels(i);
-                graphics.DrawLine(pen_line, rectangle.Left, Y, rectangle.Right, Y);
-                //graphics.DrawLine(pen_line, panel1.Width / 2 - 2, panel1.Height / 2 - i * 5 * (int)maxEdge, panel1.Width / 2 + 2, panel1.Height / 2 - i * 5 * (int)maxEdge);
-            }
-            graphics.DrawLine(pen_line, rectangle.Left, rectangle.Bottom, rectangle.Right, rectangle.Bottom);
-
-            Pen pen_axis = new Pen(Color.Black, 1);
-            //Вертикальная линия оси Х
-            graphics.DrawLine(pen_axis, panel2.Size.Width / 2, 0, panel2.Size.Width / 2, panel2.Size.Height);
-
-            //Горизонтальная линия оси Y
-            graphics.DrawLine(pen_axis, 0, panel2.Size.Height / 2, panel2.Size.Width, panel2.Size.Height / 2);
-
-            //Стрелка оси Y
-            graphics.DrawLine(pen_axis, panel2.Size.Width / 2, 0, panel2.Size.Width / 2 - 5, 10);
-            graphics.DrawLine(pen_axis, panel2.Size.Width / 2, 0, panel2.Size.Width / 2 + 5, 10);
-
-            //Стрелка оси X
-            graphics.DrawLine(pen_axis, panel2.Size.Width, panel2.Size.Height / 2, panel2.Size.Width - 10, panel2.Size.Height / 2 - 5);
-            graphics.DrawLine(pen_axis, panel2.Size.Width, panel2.Size.Height / 2, panel2.Size.Width - 10, panel2.Size.Height / 2 + 5);
-
-            //Границы осей
-            Font font = new System.Drawing.Font("Arial", 10);
-            //Центральная точка
-            graphics.DrawString(((maxEdge + (-maxEdge)) / 2).ToString(), font, Brushes.Black, panel2.Size.Width / 2 - 15, panel2.Size.Height / 2 + 3);
-            //X
-            graphics.DrawString((-maxEdge).ToString(), font, Brushes.Black, 0, panel2.Size.Height / 2 + 3);
-            graphics.DrawString(maxEdge.ToString(), font, Brushes.Black, panel2.Size.Width - 20, panel2.Size.Height / 2 + 5);
-            //Y
-            graphics.DrawString((-maxEdge).ToString(), font, Brushes.Black, panel2.Size.Width / 2 - 22, panel2.Size.Height - 20);
-            graphics.DrawString(maxEdge.ToString(), font, Brushes.Black, panel2.Size.Width / 2 - 22, 3);
-            //Имена осей 
-            graphics.DrawString("Y", font, Brushes.Black, panel2.Size.Width / 2 + 5, 3);
-            graphics.DrawString("X", font, Brushes.Black, panel2.Size.Width - 15, panel2.Size.Height / 2 - 20);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -190,8 +140,8 @@ namespace AppGraphs
                 checkedListBox1.SetItemCheckState(i, CheckState.Unchecked);
             }
             Checked.Clear();
-            graphics.Clear(Color.White);
-            DrawD();
+            plane.graphics.Clear(Color.White);
+            plane.DrawPlane();
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
