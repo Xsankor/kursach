@@ -1,41 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Threading.Tasks;
 using System.Drawing;
 
 namespace AppGraphs
 {
     public class Graph : Control
     {
-        public double maxEdge = 10;
-
-        Point point;
+        public double maxSizeEdge = 10, minSizeEdge = -10, step = 0.01;
         public double a = 2, b = 0, c = 2, d = 1;
+        
+        Point point;
         Nullable<Point> nullable;
-
         Point point_new = new Point();
 
-        public Point GetPoints(double corX, double corY) 
+        private Point GetPoints(double corX, double corY) 
         {
-            point_new.X = (int)(corX * this.Size.Width / (2 * maxEdge)) + this.Size.Width / 2;
-            point_new.Y = (int)(corY * this.Size.Height / (2 * maxEdge)) + this.Size.Height / 2;
+            point_new.X = (int)(corX * this.Size.Width / (2 * maxSizeEdge)) + this.Size.Width / 2;
+            point_new.Y = (int)(corY * this.Size.Height / (2 * maxSizeEdge)) + this.Size.Height / 2;
             return point_new;
         }
 
-        public float YToPixels(double y)
-        {
-            return (float)(ChartArea.Height * (y - (-maxEdge)) / (maxEdge - (-maxEdge)));
-        }
-
-        public float XToPixels(double x)
-        {
-            return (float)(ChartArea.Width * (x - (-maxEdge)) / (maxEdge - (-maxEdge)));
-        }
-
-        public void SetPoint(double pointX, double pointY, Graphics graphics, Pen pen) 
+        private void SetPoint(double pointX, double pointY, Graphics graphics, Pen pen) 
         {
             point = GetPoints(pointX, pointY);
             if (nullable != null) 
@@ -45,12 +30,15 @@ namespace AppGraphs
             nullable = point;
         }
 
+
+        // Есть инверсия графика. Нужно исправить !!!!
         public void BuildGraph(int option, Color color)
         {
             double y;
             Pen pen = new Pen(color, 2);
             Graphics graphics = this.CreateGraphics();
-            for (double x = (-maxEdge); x <= maxEdge; x += 0.01)
+            for (double x = maxSizeEdge; x >= minSizeEdge; x -= step)
+            //for (double x = minSizeEdge; x <= maxSizeEdge; x += step)
             {
                 x = Math.Round(x, 2);
                 if (x == 0) continue;
@@ -58,9 +46,10 @@ namespace AppGraphs
                 SetPoint(x, y, graphics, pen);
             }
             SetNullable();
+            pen.Dispose();
         }
 
-        public double СalcFunction(double x, int option = 0)
+        private double СalcFunction(double x, int option = 0)
         {
             switch (option) 
             {
@@ -78,19 +67,9 @@ namespace AppGraphs
             }
         }
 
-        public void SetNullable()
+        private void SetNullable()
         {
             nullable = null;
-        }
-
-        public Rectangle ChartArea
-        {
-            get
-            {
-                var rect = ClientRectangle;
-                rect.Inflate(-1, -1);
-                return rect;
-            }
         }
     }
 }

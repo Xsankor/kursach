@@ -7,12 +7,10 @@ namespace AppGraphs
 {
     public partial class Form1 : Form
     {
+        Plane plane;
         Graph graph;
-        Graphics graphics;
         Color selectedColor;
         List<int> Checked = new List<int>();
-
-        double sizeEdges = 10;
 
         public Form1()  
         {
@@ -22,9 +20,36 @@ namespace AppGraphs
             checkedListBox1.SetItemChecked(0, true);
             Checked.Add(0);
 
-            graph = new Graph() { Parent = panel2, Dock = DockStyle.Fill };
-            graphics = graph.CreateGraphics();
-            DrawD();
+            plane = new Plane() { Parent = panel2, Dock = DockStyle.Fill };
+            graph = new Graph() { Parent = plane,  Dock = DockStyle.Fill };
+            plane.graphics = graph.CreateGraphics();
+
+            plane.DrawPlane();
+            TextBox[] arrayTextBox = { textBox1, textBox3, textBox4, textBox5, textBox2, 
+                                       textBox1, textBox8, textBox7, textBox6, textBox9, textBox10 };
+
+            Array.ForEach(arrayTextBox, tb => tb.KeyPress += TB_KeyPress);
+
+            PictureBox[] arrayPictureBoxes = { pictureBox2, pictureBox3, pictureBox4, pictureBox5,
+                                               pictureBox6, pictureBox7, pictureBox8, pictureBox9,
+                                               pictureBox10, pictureBox11 };
+
+            Array.ForEach(arrayPictureBoxes, pb => pb.Click += PB_Click);
+        }
+
+        private void PB_Click(object sender, EventArgs e)
+        {
+            PictureBox pictureBox = sender as PictureBox;
+            pictureBox.BackColor = GetColor();
+        }
+
+        private void TB_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44 && number != 45) //цифры, клавиша BackSpace и запятая а ASCII
+            {
+                e.Handled = true;
+            }
         }
 
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -43,7 +68,7 @@ namespace AppGraphs
 
         private void ReDraw() 
         {
-            DrawD();
+            plane.DrawPlane();
             for (int i = 0; i < Checked.Count; ++i)
             {
                 GetAllData(Checked[i]);
@@ -57,31 +82,35 @@ namespace AppGraphs
             {
                 case 0:
                 {
-                    graph.a = Convert.ToInt32(textBox3.Text);
-                    graph.b = Convert.ToInt32(textBox4.Text);
-                    graph.c = Convert.ToInt32(textBox5.Text);
+                    graph.a = Convert.ToDouble(textBox3.Text);
+                    graph.b = Convert.ToDouble(textBox4.Text);
+                    graph.c = Convert.ToDouble(textBox5.Text);
+
                     color = pictureBox2.BackColor;
                 }
                 break;
                 case 1: 
                 {
-                    graph.a = Convert.ToInt32(textBox2.Text);
-                    graph.b = Convert.ToInt32(textBox1.Text);
+                    graph.a = Convert.ToDouble(textBox2.Text);
+                    graph.b = Convert.ToDouble(textBox1.Text);
+
                     color = pictureBox3.BackColor;
                 }
                 break;
                 case 2: 
                 {
-                     graph.a = Convert.ToInt32(textBox8.Text);
-                     graph.b = Convert.ToInt32(textBox7.Text);
-                     graph.c = Convert.ToInt32(textBox6.Text);
-                     graph.d = Convert.ToInt32(textBox9.Text);
-                     color = pictureBox4.BackColor;
+                    graph.a = Convert.ToDouble(textBox8.Text);
+                    graph.b = Convert.ToDouble(textBox7.Text);
+                    graph.c = Convert.ToDouble(textBox6.Text);
+                    graph.d = Convert.ToDouble(textBox9.Text);
+
+                    color = pictureBox4.BackColor;
                 }
                 break;
                 case 3:
                 {
-                    graph.a = Convert.ToInt32(textBox10.Text);
+                    graph.a = Convert.ToDouble(textBox10.Text);
+
                     color = pictureBox5.BackColor;
                 }
                 break;
@@ -119,68 +148,16 @@ namespace AppGraphs
             graph.BuildGraph(index, color);
         }
 
-
-        // Также добавить ONCHANGE
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            graph.maxEdge = (int)numericUpDown1.Value;
+            if (numericUpDown2.Value == numericUpDown1.Value)
+            {
+                numericUpDown2.Value--;
+            }
+
+            plane.maxEdge       = (int)numericUpDown1.Value;
+            graph.maxSizeEdge   = (int)numericUpDown1.Value;
             ReDraw();
-        }
-
-        private void DrawD() 
-        {
-            Rectangle rectangle = graph.ChartArea;
-            double maxEdge = graph.maxEdge;
-
-            graphics.Clear(Color.White);
-            Pen pen_line = new Pen(Color.LightGray, 1);
-            //Вертикальные линии
-            for (int i = (int)(-maxEdge); i <= (int)maxEdge; ++i) 
-            //for (int i = -panel1.Height / (5 * (int)maxEdge); i < panel1.Height / (5 * (int)maxEdge); ++i)
-            {
-                float X = graph.Left + graph.XToPixels(i);
-                graphics.DrawLine(pen_line, X, rectangle.Bottom, X, rectangle.Top);
-                //graphics.DrawLine(pen_line, panel1.Width / 2 + i * 5 * (int)maxEdge, panel1.Height / 2 - 2, panel1.Width / 2 + i * 5 * (int)maxEdge, panel1.Height / 2 + 2);
-            }
-
-            //Горизонтальные линии
-            for (int i = (int)(-maxEdge); i <= (int)maxEdge; ++i) 
-            //for (int i = -panel1.Width / (5 * (int)maxEdge); i < panel1.Width / (5 * (int)maxEdge); ++i)
-            {
-                float Y = graph.Bottom - graph.YToPixels(i);
-                graphics.DrawLine(pen_line, rectangle.Left, Y, rectangle.Right, Y);
-                //graphics.DrawLine(pen_line, panel1.Width / 2 - 2, panel1.Height / 2 - i * 5 * (int)maxEdge, panel1.Width / 2 + 2, panel1.Height / 2 - i * 5 * (int)maxEdge);
-            }
-            graphics.DrawLine(pen_line, rectangle.Left, rectangle.Bottom, rectangle.Right, rectangle.Bottom);
-
-            Pen pen_axis = new Pen(Color.Black, 1);
-            //Вертикальная линия оси Х
-            graphics.DrawLine(pen_axis, panel2.Size.Width / 2, 0, panel2.Size.Width / 2, panel2.Size.Height);
-
-            //Горизонтальная линия оси Y
-            graphics.DrawLine(pen_axis, 0, panel2.Size.Height / 2, panel2.Size.Width, panel2.Size.Height / 2);
-
-            //Стрелка оси Y
-            graphics.DrawLine(pen_axis, panel2.Size.Width / 2, 0, panel2.Size.Width / 2 - 5, 10);
-            graphics.DrawLine(pen_axis, panel2.Size.Width / 2, 0, panel2.Size.Width / 2 + 5, 10);
-
-            //Стрелка оси X
-            graphics.DrawLine(pen_axis, panel2.Size.Width, panel2.Size.Height / 2, panel2.Size.Width - 10, panel2.Size.Height / 2 - 5);
-            graphics.DrawLine(pen_axis, panel2.Size.Width, panel2.Size.Height / 2, panel2.Size.Width - 10, panel2.Size.Height / 2 + 5);
-
-            //Границы осей
-            Font font = new System.Drawing.Font("Arial", 10);
-            //Центральная точка
-            graphics.DrawString(((maxEdge + (-maxEdge)) / 2).ToString(), font, Brushes.Black, panel2.Size.Width / 2 - 15, panel2.Size.Height / 2 + 3);
-            //X
-            graphics.DrawString((-maxEdge).ToString(), font, Brushes.Black, 0, panel2.Size.Height / 2 + 3);
-            graphics.DrawString(maxEdge.ToString(), font, Brushes.Black, panel2.Size.Width - 20, panel2.Size.Height / 2 + 5);
-            //Y
-            graphics.DrawString((-maxEdge).ToString(), font, Brushes.Black, panel2.Size.Width / 2 - 22, panel2.Size.Height - 20);
-            graphics.DrawString(maxEdge.ToString(), font, Brushes.Black, panel2.Size.Width / 2 - 22, 3);
-            //Имена осей 
-            graphics.DrawString("Y", font, Brushes.Black, panel2.Size.Width / 2 + 5, 3);
-            graphics.DrawString("X", font, Brushes.Black, panel2.Size.Width - 15, panel2.Size.Height / 2 - 20);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -190,58 +167,8 @@ namespace AppGraphs
                 checkedListBox1.SetItemCheckState(i, CheckState.Unchecked);
             }
             Checked.Clear();
-            graphics.Clear(Color.White);
-            DrawD();
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-            pictureBox2.BackColor = GetColor();
-        }
-
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-            pictureBox3.BackColor = GetColor();
-        }
-
-        private void pictureBox4_Click(object sender, EventArgs e)
-        {
-            pictureBox4.BackColor = GetColor();
-        }
-
-        private void pictureBox5_Click(object sender, EventArgs e)
-        {
-            pictureBox5.BackColor = GetColor();
-        }
-
-        private void pictureBox6_Click(object sender, EventArgs e)
-        {
-            pictureBox6.BackColor = GetColor();
-        }
-
-        private void pictureBox7_Click(object sender, EventArgs e)
-        {
-            pictureBox7.BackColor = GetColor();
-        }
-
-        private void pictureBox8_Click(object sender, EventArgs e)
-        {
-            pictureBox8.BackColor = GetColor();
-        }
-
-        private void pictureBox9_Click(object sender, EventArgs e)
-        {
-            pictureBox9.BackColor = GetColor();
-        }
-
-        private void pictureBox10_Click(object sender, EventArgs e)
-        {
-            pictureBox10.BackColor = GetColor();
-        }
-
-        private void pictureBox11_Click(object sender, EventArgs e)
-        {
-            pictureBox11.BackColor = GetColor();
+            plane.graphics.Clear(Color.White);
+            plane.DrawPlane();
         }
 
         private Color GetColor() 
@@ -251,6 +178,28 @@ namespace AppGraphs
                 selectedColor = colorDialog1.Color;
             }
             return selectedColor;
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            TrackBar trackBar = sender as TrackBar;
+            double num = (double)trackBar.Value;
+            num = (num / 100);
+            if (num == 0 || num == 1) return;
+            graph.step      = num;
+            label12.Text    = num.ToString();
+            ReDraw();
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            if (numericUpDown2.Value == numericUpDown1.Value) 
+            {
+                numericUpDown1.Value++;
+            }
+            plane.minEdge       = (int)numericUpDown2.Value;
+            graph.minSizeEdge   = (int)numericUpDown2.Value;
+            ReDraw();
         }
     }
 }

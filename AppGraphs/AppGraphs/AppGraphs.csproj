@@ -47,6 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Plane.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Graph.cs">
       <SubType>Component</SubType>
     </Compile>
