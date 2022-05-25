@@ -9,7 +9,6 @@ namespace AppGraphs
     {
         Plane plane;
         Graph graph;
-
         Color selectedColor;
         List<int> Checked = new List<int>();
 
@@ -26,6 +25,31 @@ namespace AppGraphs
             plane.graphics = graph.CreateGraphics();
 
             plane.DrawPlane();
+            TextBox[] arrayTextBox = { textBox1, textBox3, textBox4, textBox5, textBox2, 
+                                       textBox1, textBox8, textBox7, textBox6, textBox9, textBox10 };
+
+            Array.ForEach(arrayTextBox, tb => tb.KeyPress += TB_KeyPress);
+
+            PictureBox[] arrayPictureBoxes = { pictureBox2, pictureBox3, pictureBox4, pictureBox5,
+                                               pictureBox6, pictureBox7, pictureBox8, pictureBox9,
+                                               pictureBox10, pictureBox11 };
+
+            Array.ForEach(arrayPictureBoxes, pb => pb.Click += PB_Click);
+        }
+
+        private void PB_Click(object sender, EventArgs e)
+        {
+            PictureBox pictureBox = sender as PictureBox;
+            pictureBox.BackColor = GetColor();
+        }
+
+        private void TB_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44 && number != 45) //цифры, клавиша BackSpace и запятая а ASCII
+            {
+                e.Handled = true;
+            }
         }
 
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -58,78 +82,81 @@ namespace AppGraphs
             {
                 case 0:
                 {
-                    graph.a = Convert.ToInt32(textBox3.Text);
-                    graph.b = Convert.ToInt32(textBox4.Text);
-                    graph.c = Convert.ToInt32(textBox5.Text);
+                    graph.a = Convert.ToDouble(textBox3.Text);
+                    graph.b = Convert.ToDouble(textBox4.Text);
+                    graph.c = Convert.ToDouble(textBox5.Text);
 
                     color = pictureBox2.BackColor;
                 }
                 break;
                 case 1: 
                 {
-                    graph.a = Convert.ToInt32(textBox2.Text);
-                    graph.b = Convert.ToInt32(textBox1.Text);
+                    graph.a = Convert.ToDouble(textBox2.Text);
+                    graph.b = Convert.ToDouble(textBox1.Text);
 
                     color = pictureBox3.BackColor;
                 }
                 break;
                 case 2: 
                 {
-                     graph.a = Convert.ToInt32(textBox8.Text);
-                     graph.b = Convert.ToInt32(textBox7.Text);
-                     graph.c = Convert.ToInt32(textBox6.Text);
-                     graph.d = Convert.ToInt32(textBox9.Text);
+                    graph.a = Convert.ToDouble(textBox8.Text);
+                    graph.b = Convert.ToDouble(textBox7.Text);
+                    graph.c = Convert.ToDouble(textBox6.Text);
+                    graph.d = Convert.ToDouble(textBox9.Text);
 
-                     color = pictureBox4.BackColor;
+                    color = pictureBox4.BackColor;
                 }
                 break;
                 case 3:
                 {
-                    graph.a = Convert.ToInt32(textBox10.Text);
+                    graph.a = Convert.ToDouble(textBox10.Text);
 
                     color = pictureBox5.BackColor;
                 }
                 break;
                 case 4:
                 {
-                     color = pictureBox6.BackColor;
+                    color = pictureBox6.BackColor;
                 }
                 break;
                 case 5:
                 {
-                      color = pictureBox7.BackColor;
+                    color = pictureBox7.BackColor;
                 }
                 break;
                 case 6:
                 {
-                      color = pictureBox8.BackColor;
+                    color = pictureBox8.BackColor;
                 }
                 break;
                 case 7:
                 {
-                      color = pictureBox9.BackColor;
+                    color = pictureBox9.BackColor;
                 }
                 break;
                 case 8:
                 {
-                      color = pictureBox10.BackColor;
+                    color = pictureBox10.BackColor;
                 }
                 break;
                 case 9:
                 {
-                      color = pictureBox11.BackColor;
+                    color = pictureBox11.BackColor;
                 }
                 break;
             }
             graph.BuildGraph(index, color);
         }
 
-        // Также добавить ONCHANGE
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            plane.maxEdge = (int)numericUpDown1.Value;
-            graph.maxSizeEdge = (int)numericUpDown1.Value;
-            graph.minSizeEdge = -(int)numericUpDown1.Value;
+            if (numericUpDown2.Value == numericUpDown1.Value)
+            {
+                numericUpDown2.Value--;
+            }
+
+            plane.maxEdge       = (int)numericUpDown1.Value;
+            graph.maxSizeEdge   = (int)numericUpDown1.Value;
             ReDraw();
         }
 
@@ -144,56 +171,6 @@ namespace AppGraphs
             plane.DrawPlane();
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-            pictureBox2.BackColor = GetColor();
-        }
-
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-            pictureBox3.BackColor = GetColor();
-        }
-
-        private void pictureBox4_Click(object sender, EventArgs e)
-        {
-            pictureBox4.BackColor = GetColor();
-        }
-
-        private void pictureBox5_Click(object sender, EventArgs e)
-        {
-            pictureBox5.BackColor = GetColor();
-        }
-
-        private void pictureBox6_Click(object sender, EventArgs e)
-        {
-            pictureBox6.BackColor = GetColor();
-        }
-
-        private void pictureBox7_Click(object sender, EventArgs e)
-        {
-            pictureBox7.BackColor = GetColor();
-        }
-
-        private void pictureBox8_Click(object sender, EventArgs e)
-        {
-            pictureBox8.BackColor = GetColor();
-        }
-
-        private void pictureBox9_Click(object sender, EventArgs e)
-        {
-            pictureBox9.BackColor = GetColor();
-        }
-
-        private void pictureBox10_Click(object sender, EventArgs e)
-        {
-            pictureBox10.BackColor = GetColor();
-        }
-
-        private void pictureBox11_Click(object sender, EventArgs e)
-        {
-            pictureBox11.BackColor = GetColor();
-        }
-
         private Color GetColor() 
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
@@ -201,6 +178,28 @@ namespace AppGraphs
                 selectedColor = colorDialog1.Color;
             }
             return selectedColor;
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            TrackBar trackBar = sender as TrackBar;
+            double num = (double)trackBar.Value;
+            num = (num / 100);
+            if (num == 0 || num == 1) return;
+            graph.step      = num;
+            label12.Text    = num.ToString();
+            ReDraw();
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            if (numericUpDown2.Value == numericUpDown1.Value) 
+            {
+                numericUpDown1.Value++;
+            }
+            plane.minEdge       = (int)numericUpDown2.Value;
+            graph.minSizeEdge   = (int)numericUpDown2.Value;
+            ReDraw();
         }
     }
 }
