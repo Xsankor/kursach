@@ -1,6 +1,6 @@
 ﻿namespace AppGraphs
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,10 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,6 +98,7 @@
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -108,11 +120,12 @@
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.Control;
+            this.button1.BackColor = System.Drawing.SystemColors.Window;
             resources.ApplyResources(this.button1, "button1");
             this.button1.Name = "button1";
             this.button1.UseVisualStyleBackColor = false;
@@ -120,17 +133,11 @@
             // 
             // button2
             // 
-            this.button2.BackColor = System.Drawing.SystemColors.Control;
+            this.button2.BackColor = System.Drawing.SystemColors.Window;
             resources.ApplyResources(this.button2, "button2");
             this.button2.Name = "button2";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.SystemColors.Window;
-            resources.ApplyResources(this.panel2, "panel2");
-            this.panel2.Name = "panel2";
             // 
             // menuStrip1
             // 
@@ -151,11 +158,13 @@
             // 
             this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
             resources.ApplyResources(this.справкаToolStripMenuItem, "справкаToolStripMenuItem");
+            this.справкаToolStripMenuItem.Click += new System.EventHandler(this.справкаToolStripMenuItem_Click);
             // 
             // оРазработчикеToolStripMenuItem
             // 
             this.оРазработчикеToolStripMenuItem.Name = "оРазработчикеToolStripMenuItem";
             resources.ApplyResources(this.оРазработчикеToolStripMenuItem, "оРазработчикеToolStripMenuItem");
+            this.оРазработчикеToolStripMenuItem.Click += new System.EventHandler(this.оРазработчикеToolStripMenuItem_Click);
             // 
             // groupBox1
             // 
@@ -166,7 +175,7 @@
             // 
             // checkedListBox1
             // 
-            this.checkedListBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.checkedListBox1.BackColor = System.Drawing.SystemColors.Menu;
             this.checkedListBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.checkedListBox1.CheckOnClick = true;
             this.checkedListBox1.FormattingEnabled = true;
@@ -194,12 +203,12 @@
             // 
             resources.ApplyResources(this.numericUpDown1, "numericUpDown1");
             this.numericUpDown1.Maximum = new decimal(new int[] {
-            10,
+            50,
             0,
             0,
             0});
             this.numericUpDown1.Minimum = new decimal(new int[] {
-            9,
+            49,
             0,
             0,
             -2147483648});
@@ -240,6 +249,7 @@
             resources.ApplyResources(this.pictureBox11, "pictureBox11");
             this.pictureBox11.Name = "pictureBox11";
             this.pictureBox11.TabStop = false;
+            this.pictureBox11.Click += new System.EventHandler(this.pictureBox11_Click_1);
             // 
             // pictureBox10
             // 
@@ -249,6 +259,7 @@
             resources.ApplyResources(this.pictureBox10, "pictureBox10");
             this.pictureBox10.Name = "pictureBox10";
             this.pictureBox10.TabStop = false;
+            this.pictureBox10.Click += new System.EventHandler(this.pictureBox10_Click);
             // 
             // pictureBox9
             // 
@@ -258,6 +269,7 @@
             resources.ApplyResources(this.pictureBox9, "pictureBox9");
             this.pictureBox9.Name = "pictureBox9";
             this.pictureBox9.TabStop = false;
+            this.pictureBox9.Click += new System.EventHandler(this.pictureBox9_Click_1);
             // 
             // pictureBox8
             // 
@@ -267,6 +279,7 @@
             resources.ApplyResources(this.pictureBox8, "pictureBox8");
             this.pictureBox8.Name = "pictureBox8";
             this.pictureBox8.TabStop = false;
+            this.pictureBox8.Click += new System.EventHandler(this.pictureBox8_Click_1);
             // 
             // pictureBox7
             // 
@@ -276,6 +289,7 @@
             resources.ApplyResources(this.pictureBox7, "pictureBox7");
             this.pictureBox7.Name = "pictureBox7";
             this.pictureBox7.TabStop = false;
+            this.pictureBox7.Click += new System.EventHandler(this.pictureBox7_Click_1);
             // 
             // pictureBox6
             // 
@@ -285,6 +299,7 @@
             resources.ApplyResources(this.pictureBox6, "pictureBox6");
             this.pictureBox6.Name = "pictureBox6";
             this.pictureBox6.TabStop = false;
+            this.pictureBox6.Click += new System.EventHandler(this.pictureBox6_Click_1);
             // 
             // pictureBox5
             // 
@@ -294,6 +309,7 @@
             resources.ApplyResources(this.pictureBox5, "pictureBox5");
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.TabStop = false;
+            this.pictureBox5.Click += new System.EventHandler(this.pictureBox5_Click_1);
             // 
             // pictureBox4
             // 
@@ -303,14 +319,17 @@
             resources.ApplyResources(this.pictureBox4, "pictureBox4");
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.TabStop = false;
+            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click_1);
             // 
             // pictureBox3
             // 
             this.pictureBox3.BackColor = System.Drawing.Color.Blue;
+            this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.pictureBox3, "pictureBox3");
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click_1);
             // 
             // pictureBox2
             // 
@@ -320,6 +339,7 @@
             resources.ApplyResources(this.pictureBox2, "pictureBox2");
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // tabPage4
             // 
@@ -385,16 +405,19 @@
             // 
             resources.ApplyResources(this.textBox5, "textBox5");
             this.textBox5.Name = "textBox5";
+            this.textBox5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TB_KeyPress);
             // 
             // textBox4
             // 
             resources.ApplyResources(this.textBox4, "textBox4");
             this.textBox4.Name = "textBox4";
+            this.textBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TB_KeyPress);
             // 
             // textBox3
             // 
             resources.ApplyResources(this.textBox3, "textBox3");
             this.textBox3.Name = "textBox3";
+            this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TB_KeyPress);
             // 
             // label3
             // 
@@ -413,11 +436,12 @@
             // 
             // tabControl2
             // 
+            resources.ApplyResources(this.tabControl2, "tabControl2");
             this.tabControl2.Controls.Add(this.tabPage1);
             this.tabControl2.Controls.Add(this.tabPage2);
             this.tabControl2.Controls.Add(this.tabPage3);
             this.tabControl2.Controls.Add(this.tabPage4);
-            resources.ApplyResources(this.tabControl2, "tabControl2");
+            this.tabControl2.Multiline = true;
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
@@ -522,12 +546,12 @@
             // 
             resources.ApplyResources(this.numericUpDown2, "numericUpDown2");
             this.numericUpDown2.Maximum = new decimal(new int[] {
-            9,
+            49,
             0,
             0,
             0});
             this.numericUpDown2.Minimum = new decimal(new int[] {
-            10,
+            50,
             0,
             0,
             -2147483648});
@@ -549,11 +573,102 @@
             resources.ApplyResources(this.label19, "label19");
             this.label19.Name = "label19";
             // 
+            // chart1
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
+            resources.ApplyResources(this.chart1, "chart1");
+            this.chart1.Name = "chart1";
+            series11.BorderWidth = 3;
+            series11.ChartArea = "ChartArea1";
+            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            series11.Legend = "Legend1";
+            series11.Name = "y = ax^2 + bx + c";
+            series11.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            series11.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            series12.BorderWidth = 3;
+            series12.ChartArea = "ChartArea1";
+            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series12.Legend = "Legend1";
+            series12.Name = "y = ax + b";
+            series12.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            series12.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            series13.BorderWidth = 3;
+            series13.ChartArea = "ChartArea1";
+            series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series13.Legend = "Legend1";
+            series13.Name = "y = ax^3 + bx^2 + cx + d";
+            series13.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            series13.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            series14.BorderWidth = 3;
+            series14.ChartArea = "ChartArea1";
+            series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series14.Legend = "Legend1";
+            series14.Name = "y = a / x";
+            series14.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.UInt64;
+            series14.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            series15.BorderWidth = 3;
+            series15.ChartArea = "ChartArea1";
+            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series15.Legend = "Legend1";
+            series15.Name = "y = x^3";
+            series15.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            series15.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            series16.BorderWidth = 3;
+            series16.ChartArea = "ChartArea1";
+            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series16.Legend = "Legend1";
+            series16.Name = "y = e^x";
+            series16.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            series16.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            series17.BorderWidth = 3;
+            series17.ChartArea = "ChartArea1";
+            series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series17.Legend = "Legend1";
+            series17.Name = "y = ln(x)";
+            series17.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            series17.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            series18.BorderWidth = 3;
+            series18.ChartArea = "ChartArea1";
+            series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series18.Legend = "Legend1";
+            series18.Name = "y = sin(x)";
+            series18.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            series18.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            series19.BorderWidth = 3;
+            series19.ChartArea = "ChartArea1";
+            series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series19.Legend = "Legend1";
+            series19.Name = "y = tg(x)";
+            series19.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            series19.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            series20.BorderWidth = 3;
+            series20.ChartArea = "ChartArea1";
+            series20.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series20.Legend = "Legend1";
+            series20.Name = "y = arcctg(x)";
+            series20.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            series20.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            this.chart1.Series.Add(series11);
+            this.chart1.Series.Add(series12);
+            this.chart1.Series.Add(series13);
+            this.chart1.Series.Add(series14);
+            this.chart1.Series.Add(series15);
+            this.chart1.Series.Add(series16);
+            this.chart1.Series.Add(series17);
+            this.chart1.Series.Add(series18);
+            this.chart1.Series.Add(series19);
+            this.chart1.Series.Add(series20);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Menu;
+            this.Controls.Add(this.chart1);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.numericUpDown2);
@@ -562,7 +677,6 @@
             this.Controls.Add(this.label12);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -599,6 +713,7 @@
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -607,7 +722,6 @@
         #endregion
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
@@ -663,6 +777,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }
 

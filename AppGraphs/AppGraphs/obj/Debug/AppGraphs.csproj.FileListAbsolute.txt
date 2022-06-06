@@ -18,11 +18,13 @@ F:\GitRep\kursach\AppGraphs\AppGraphs\bin\Debug\AppGraphs.pdb
 F:\GitRep\kursach\AppGraphs\AppGraphs\bin\Debug\ru\AppGraphs.resources.dll
 F:\GitRep\kursach\AppGraphs\AppGraphs\obj\Debug\AppGraphs.csproj.AssemblyReference.cache
 F:\GitRep\kursach\AppGraphs\AppGraphs\obj\Debug\AppGraphs.csproj.SuggestedBindingRedirects.cache
-F:\GitRep\kursach\AppGraphs\AppGraphs\obj\Debug\AppGraphs.Form1.resources
 F:\GitRep\kursach\AppGraphs\AppGraphs\obj\Debug\AppGraphs.Properties.Resources.resources
-F:\GitRep\kursach\AppGraphs\AppGraphs\obj\Debug\AppGraphs.Form1.ru.resources
 F:\GitRep\kursach\AppGraphs\AppGraphs\obj\Debug\AppGraphs.csproj.GenerateResource.cache
 F:\GitRep\kursach\AppGraphs\AppGraphs\obj\Debug\AppGraphs.csproj.CoreCompileInputs.cache
 F:\GitRep\kursach\AppGraphs\AppGraphs\obj\Debug\ru\AppGraphs.resources.dll
 F:\GitRep\kursach\AppGraphs\AppGraphs\obj\Debug\AppGraphs.exe
 F:\GitRep\kursach\AppGraphs\AppGraphs\obj\Debug\AppGraphs.pdb
+F:\GitRep\kursach\AppGraphs\AppGraphs\obj\Debug\AppGraphs.MainForm.resources
+F:\GitRep\kursach\AppGraphs\AppGraphs\obj\Debug\AppGraphs.FormReference.resources
+F:\GitRep\kursach\AppGraphs\AppGraphs\obj\Debug\AppGraphs.FormInfo.resources
+F:\GitRep\kursach\AppGraphs\AppGraphs\obj\Debug\AppGraphs.MainForm.ru.resources
